@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Heamocrony</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+    Theme Name: EstateAgency
+    Theme URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <div class="click-closed"></div>
+  <!--/ Form Search Star /-->
+  <div class="box-collapse">
+    <div class="title-box-d">
+      <h3 class="title-d">Request Blood</h3>
+    </div>
+    <span class="close-box-collapse right-boxed ion-ios-close"></span>
+    <div class="box-collapse-wrap form">
+      <form class="form-a" action=result.php method=POST>
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-group">
+              <label for="Type">Place Of Blood Requirement</label>
+              <input type="text" class="form-control form-control-lg form-control-a" placeholder="Address" id="loc">
+              <input type="hidden" id="latitude1" name="latitude1">
+              <input type="hidden" id="longitude1" name="longitude1">
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <label for="bedrooms">Blood Group Required</label>
+              <select class="form-control form-control-lg form-control-a" id="bedrooms"  name="bedrooms">
+                <option selected="selected">A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>O+</option>
+                <option>O-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+              </select>
+            </div>
+          </div>
+          <script>
+             var locationForm = document.getElementById('form-a');
+
+    // Listen for submiot
+   	 document.getElementById("bedrooms").addEventListener("focus", geocode);
+
+    function geocode(e){
+      // Prevent actual submit
+      //e.preventDefault();
+
+      var location2 = document.getElementById('loc').value;
+
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+        params:{
+          address:location2,
+          key:'AIzaSyCCV8ro3-SJ5y0JA5zRkQh_MmpUWqa0DiQ'
+        }
+      })
+      .then(function(response){
+        // Log full response
+        console.log(response);
+        // Geometry
+        var lat1 = response.data.results[0].geometry.location.lat;
+        var lng1 = response.data.results[0].geometry.location.lng;
+        var geometryOutput1 = `
+          <ul class="list-group">
+            <li class="list-group-item"><strong>Latitude</strong>: ${lat1}</li>
+            <li class="list-group-item"><strong>Longitude</strong>: ${lng1}</li>
+          </ul>
+        `;
+
+        // Output to app
+        //document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
+        //document.getElementById('address-components').innerHTML = addressComponentsOutput;
+        document.getElementById('geometry1').innerHTML = geometryOutput1;
+        document.getElementById('latitude1').value=lat1;
+         document.getElementById('longitude1').value=lng1;
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+    }
+          </script>
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-b">Request</button>
+          </div>
+        </div>
+            <div id="geometry1"></div>
+
+      </form>
+    </div>
+  </div>
+  <!--/ Form Search End /-->
+
+  <!--/ Nav Star /-->
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+    <div class="container">
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="navbar-brand text-brand" href="index.html">Heamo<span class="color-b">Crony</span></a>
+      <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+      <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link " href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="eligibilityOfBloodDonation.html">Eligibility Of Blood Donation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="benifitsOfBloodDonation.html">Benifits Of Blood Donation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://bit.ly/2kybP4X" target="_blank">Blood banks near me</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="beADonor.html">Be a Donor!!</a>
+          </li>
+        </ul>
+      </div>
+      <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">Request Blood
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+  <!--/ Nav End /-->
+
+  <!--/ Carousel Star /-->
+  <!--/ Carousel end /-->
+
+  <!--/ Services Star /-->
+  <section class="section-property section-t8">
+    <div class="container">
+      <form  id=donarform action="donorFormphp.php" method="post">
+ <!-- <h3 style="color: red ;text-align: center;" > BLOODDONAR FORM </h3>-->
+  <h3 class="color-b" > Blood Donation Form
+        </h3>
+  <b>Name:</b> 
+      <i class="fa fa-user icon"></i>
+    <input type="text"  name="name" required autofocus style="border-radius: 5px;"><br>
+  <br>
+  <b>Date of Birth:</b>
+    <i class="fa fa-calender-alt"></i>
+    <input type="date" name="date" required max=sysdate() style="border-radius: 5px;"><br>
+  <br>
+  <b>Phone number:</b><br>
+    <i class="fa fa-mobile-phone icon"style="font-size:25px;"></i>
+    <input type="tel" name ="phno" pattern="[0-9]{10}" required>
+    <span id="phnov"> enter a 10-digit number</span>
+  <br>
+  <b>Address: </b>
+  <br>
+    <input type="text" id="location-input">
+  <br>
+  <br>
+  <b>E mail:</b>
+      <i class="fa fa-envelope icon"></i>
+    <input type="email" name="mail" id="address"><br>
+    <br>
+  
+  <br>
+  <b>Gender:<br></b>
+    <input type="radio" name="gender" value=" male" checked="checked" > Male <br>
+    <input type="radio" name="gender" value="Female" > Female <br>
+    <input type="radio" name="gender" value=" other"> other <br>
+  <br>
+  <b>Blood Group</b>
+    <select name="BloodGroup" required>
+      <option value="A+" selected="selected" > A+ </option>
+      <option value="A-"> A- </option> 
+      <option value="B+"> B+ </option> 
+      <option value="B-"> B- </option> 
+      <option value="AB+"> AB+ </option> 
+      <option value="AB-"> AB- </option> 
+      <option value="O+"> O+ </option> 
+      <option value="O-"> O- </option> 
+    </select>
+  <br>
+  <br>
+  
+<!--<button>submit</button>-->
+    <div><input type="hidden" id="latitude" name="latitude"></div>
+    <div><input type="hidden" id="longitude" name="longitude"></div>
+    <div id="geometry"></div>
+  <button type="submit">submit</button>
+  <br>
+  <br>
+
+  </form>
+      <!--<div id="geometry"></div><br>-->
+       <script>
+    // Call Geocode
+    //geocode();
+
+    // Get location form
+    var locationForm = document.getElementById('donarform');
+
+    // Listen for submiot
+    document.getElementById('address').addEventListener("click", geocode);
+
+    function geocode(e){
+      // Prevent actual submit
+      //e.preventDefault();
+
+      var location = document.getElementById('location-input').value;
+
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+        params:{
+          address:location,
+          key:'AIzaSyCCV8ro3-SJ5y0JA5zRkQh_MmpUWqa0DiQ'
+        }
+      })
+      .then(function(response){
+        // Log full response
+        console.log(response);
+        // Geometry
+        var lat = response.data.results[0].geometry.location.lat;
+        var lng = response.data.results[0].geometry.location.lng;
+        var geometryOutput = `
+          <ul class="list-group">
+            <li class="list-group-item"><strong>Latitude</strong>: ${lat}</li>
+            <li class="list-group-item"><strong>Longitude</strong>: ${lng}</li>
+          </ul>
+        `;
+
+        // Output to app
+        //document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
+        //document.getElementById('address-components').innerHTML = addressComponentsOutput;
+        document.getElementById('geometry').innerHTML = geometryOutput;
+        document.getElementById('latitude').value=lat;
+         document.getElementById('longitude').value=lng;
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+    }
+    
+  </script>
+    </div>
+  </section>
+  <!--/ Services End /-->
+
+  <!--/ Property Star /-->
+  <!--/ Property End /-->
+
+  <!--/ Agents Star /-->
+  <!--/ Agents End /-->
+
+  <!--/ News Star /-->
+  <!--/ News End /-->
+
+  <!--/ Testimonials Star /-->
+  <!--/ Testimonials End /-->
+
+  <!--/ footer Star /-->
+  <footer>s
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="socials-a">
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-dribbble" aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ Footer End /-->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/popper/popper.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>

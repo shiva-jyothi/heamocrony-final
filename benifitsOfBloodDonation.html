@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Heamocrony</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+    Theme Name: EstateAgency
+    Theme URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <div class="click-closed"></div>
+  <!--/ Form Search Star /-->
+  <div class="box-collapse">
+    <div class="title-box-d">
+      <h3 class="title-d">Request Blood</h3>
+    </div>
+    <span class="close-box-collapse right-boxed ion-ios-close"></span>
+    <div class="box-collapse-wrap form">
+      <form class="form-a" action=result.php method=POST>
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-group">
+              <label for="Type">Place Of Blood Requirement</label>
+              <input type="text" class="form-control form-control-lg form-control-a" placeholder="Address" id="loc">
+              <input type="hidden" id="latitude1" name="latitude1">
+              <input type="hidden" id="longitude1" name="longitude1">
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              <label for="bedrooms">Blood Group Required</label>
+              <select class="form-control form-control-lg form-control-a" id="bedrooms"  name="bedrooms">
+                <option selected="selected">A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>O+</option>
+                <option>O-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+              </select>
+            </div>
+          </div>
+          <script>
+             var locationForm = document.getElementById('form-a');
+
+    // Listen for submiot
+     document.getElementById("bedrooms").addEventListener("focus", geocode);
+
+    function geocode(e){
+      // Prevent actual submit
+      //e.preventDefault();
+
+      var location2 = document.getElementById('loc').value;
+
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+        params:{
+          address:location2,
+          key:'AIzaSyCCV8ro3-SJ5y0JA5zRkQh_MmpUWqa0DiQ'
+        }
+      })
+      .then(function(response){
+        // Log full response
+        console.log(response);
+        // Geometry
+        var lat1 = response.data.results[0].geometry.location.lat;
+        var lng1 = response.data.results[0].geometry.location.lng;
+        var geometryOutput1 = `
+          <ul class="list-group">
+            <li class="list-group-item"><strong>Latitude</strong>: ${lat1}</li>
+            <li class="list-group-item"><strong>Longitude</strong>: ${lng1}</li>
+          </ul>
+        `;
+
+        // Output to app
+        //document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
+        //document.getElementById('address-components').innerHTML = addressComponentsOutput;
+        document.getElementById('geometry1').innerHTML = geometryOutput1;
+        document.getElementById('latitude1').value=lat1;
+         document.getElementById('longitude1').value=lng1;
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+    }
+          </script>
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-b">Request</button>
+          </div>
+        </div>
+            <div id="geometry1"></div>
+
+      </form>
+    </div>
+  </div>
+  <!--/ Form Search End /-->
+
+  <!--/ Nav Star /-->
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+    <div class="container">
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="navbar-brand text-brand" href="index.html">Heamo<span class="color-b">Crony</span></a>
+      <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+      <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link " href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="eligibilityOfBloodDonation.html">Eligibility Of Blood Donation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="benifitsOfBloodDonation.html">Benifits Of Blood Donation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://bit.ly/2kybP4X" target="_blank">Blood banks near me</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="beADonor.html">Be a Donor!!</a>
+          </li>
+        </ul>
+      </div>
+      <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">Request Blood
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+  <!--/ Nav End /-->
+
+  <!--/ Carousel Star /-->
+  <!--/ Carousel end /-->
+
+  <!--/ Services Star /-->
+  <!--/ Services End /-->
+
+  <!--/ Property Star /-->
+  <section class="section-property section-t8">
+    <div class="container">
+      <br>
+      <h2 class='color-b'>Benifits of Blood Donation</h2>
+      <br>
+      <h4>1. Giving blood can reveal potential health problems</h4>
+      <p>While it isn’t the same thing as a trip to the doctor, donating blood can be another way to keep an eye on your cardiovascular health. You’ll receive a mini-physical prior to the blood draw, in which someone will check your pulse, blood pressure, body temperature, hemoglobin and more.  This can sometimes shed light on issues you didn’t even know about.</p>
+    
+    
+      <h4>2. Giving blood can reduce harmful iron stores</h4>
+      <p>A committed blood donor herself, Patenaude recommends donation as a way to reduce the body’s extra iron stores. The Centers for Disease Control and Prevention says the removal of red blood cells by phlebotomy (or donating blood) is the preferred treatment for patients with excess iron in their blood.</p>
+    
+    
+      <h4>3. Giving blood may lower your risk of suffering a heart attack</h4>
+      <p>Donating blood at least once a year could reduce your risk of a heart attack by 88 percent, according to a study conducted by the American Journal of Epidemiology.* This relates to the iron issue again, says Dr. David Dragoo, healthcare expert at Money Crashers.</p>
+      <p>
+      Dr. Dragoo explains that high levels of iron in the blood constrict your blood vessels and create more risk of a heart attack. Depleting those extra iron deposits by donating blood gives your vessels more room to operate.</p>
+    
+    
+      <h4>4. Giving blood may reduce your risk of developing cancer</h4>
+      <p>In an average, completely healthy person, the link between giving blood and decreased cancer risk is slim. But research does support a reduced risk of cancer for blood donors with different maladies, one of which is hemochromatosis.
+      </p>
+      <p>Phlebotomy (the process of drawing blood) was found to be an iron-reduction method that is associated with lower cancer risk and mortality, according to a study published by the Journal of the National Cancer Institute. The study focused on patients affected by peripheral arterial disease (PAD), which the Mayo Clinic describes as a common circulatory problem. PAD patients who regularly donated blood had a lower risk of developing cancer than those who did not.</p>
+    
+      <h4>5. Giving blood can help your liver stay healthy</h4>
+      <p>Another danger of iron overload is the health of your liver. “In recent years, nonalcoholic fatty liver disease (NAFLD), the hepatic expression of metabolic syndrome, has reached epidemic proportions,” reports the National Center for Biotechnology Information.
+      </p>
+      <p>Research has linked too much iron with NAFLD, Hepatitis C and other liver diseases and infections. Though there are many other factors involved in these problems, donating blood can help relieve some of those iron stores and avoid extra issues in your liver.</p>
+    
+      <h4>6. Giving blood can help your mental state</h4>
+      <p>While there are several physical benefits to donating blood, the most powerful health benefit is arguably in the psychological realm. Donating blood means that someone (or multiple people) somewhere will be getting the help they desperately need.
+      </p>
+      <p>Donating blood, especially on a regular basis, can be similar to volunteer work. You give of your time (and your literal blood) to help strangers in need. If you go to specific blood donation location each time, you’ll get to know some of the staff who are also dedicating themselves to the cause of saving lives.
+      </p>
+      <p>This kind of regular, altruistic interaction has major psychological benefits. Getting out of your usual environment to do something good for someone else is stimulating in the best kind of way.  Volunteering has been shown to have positive effects on happiness. In people over 65-years-old, volunteering also reduces the risk of depression and loneliness.
+      </p>
+      <p>Patenaude believes the psychological health benefit you receive from knowing you’re helping others is just as helpful as the physical health benefit. When you roll up your sleeve and sit down in that chair, you know you’re making a difference—and that makes you feel good!</p>
+      </div>
+    </div>
+  </section>
+  <!--/ Property End /-->
+
+  <!--/ Agents Star /-->
+  <!--/ Agents End /-->
+
+  <!--/ News Star /-->
+  <!--/ News End /-->
+
+  <!--/ Testimonials Star /-->
+  <!--/ Testimonials End /-->
+
+  <!--/ footer Star /-->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="socials-a">
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-dribbble" aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ Footer End /-->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/popper/popper.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>
