@@ -12,7 +12,7 @@ $blood_group1=$_POST['blood_group'];
 
 	</head>
 	<body>
-		<!--<img src="tenor.gif" width=50 height=50 alt=image style="float:right">-->
+		<img src="tenor.gif" width=400 height=400 alt=image style="float:right;padding-right: 100px;padding-top:50px;margin-right: 50px; ">
 		<div class="card" style="width: 18rem;margin-top: 50px;margin-left: 50px;">
 			
 				<div class="card z-depth-0">
