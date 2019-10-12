@@ -91,7 +91,7 @@ mysqli_close($conn);
 		<div class="row">
 
 			<?php foreach($donars as $donar){ ?>
-			<?php if($donar['distance']!=0.000000){ ?>
+			<?php if($donar['distance']!=0.000000&&$donar['age']>18){ ?>
 				<div class="col s6 md3">
 					<div class="card z-depth-0">
 						<div class="card-content center">
