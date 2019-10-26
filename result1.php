@@ -1,3 +1,4 @@
+
 <?php
 $latitude=$_POST['latitude1'];
 //echo $latitude;
@@ -117,6 +118,5 @@ mysqli_close($conn);
 		</div>
 	</div>
 </body>
-
-
 </html>
+

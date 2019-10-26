@@ -1,3 +1,4 @@
+
 <?php
 $name1=$_POST['name'];
 $ph_no1=$_POST['ph_no'];

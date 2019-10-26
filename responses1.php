@@ -8,25 +8,28 @@ if(!$conn){
   die('Could not connect: '.mysqli_connect_error());  
 } 
 $bg=$_POST['bgRequire'];
+$latitude=$_POST['latitude1'];
+$longitude=$_POST['longitude1'];
 $addr=$_POST['addressValue'];
 if($bg=='A+') 
-$sql="select * from location where blood_group in ('A-','A+','O-','O+')";
+$sql="select * from donar where blood_group in ('A-','A+','O-','O+')";
 if($bg=='A-') 
-$sql="select * from location where blood_group in ('A-','O-')";
+$sql="select * from donar where blood_group in ('A-','O-')";
 if($bg=='B+') 
-$sql="select * from location where blood_group in ('B-','B+','O-','O+')";
+$sql="select * from donar where blood_group in ('B-','B+','O-','O+')";
 if($bg=='B-') 
-$sql="select * from location where blood_group in ('B-','O-')";
+$sql="select * from donar where blood_group in ('B-','O-')";
 if($bg=='AB+') 
-$sql="select * from location";
+$sql="select * from donar";
 if($bg=='AB-') 
-$sql="select * from location where blood_group in ('AB-','A-','O-','B-')";
+$sql="select * from donar where blood_group in ('AB-','A-','O-','B-')";
 if($bg=='O+') 
-$sql="select * from location where blood_group in ('O-','O+')";
+$sql="select * from donar where blood_group in ('O-','O+')";
 if($bg=='O-') 
-$sql="select * from location where blood_group in ('O-')";
+$sql="select * from donar where blood_group in ('O-')";
 $res1=mysqli_query($conn,$sql);
 if(mysqli_query($conn, $sql)){  
+  echo "connected succesflly";
 }
 else{  
 echo "Not able to send it: ". mysqli_error($conn);  
@@ -34,20 +37,28 @@ echo "Not able to send it: ". mysqli_error($conn);
 $result1=mysqli_fetch_all($res1,MYSQLI_ASSOC);
 mysqli_free_result($res1);
 ?>
+<div id="r" ></div>
 <script>
-	  dList:[];
-	  <?php foreach($result1 as $resu){ ?>
-		var add="<?php echo $resu['address']?>";
-    	dList.push(add);
-	  <?php }?>
+  <?php foreach ($result1 as $res): ?>
+    //session_start();
+    //$_SESSION['lat']=$res['latitude'];
+    //$_SESSION['long']=$res['longitude'];
+  
       function initMap() 
       {
-        var origin1 ="<?php echo $addr?>";
+        var o="<?php echo $latitude?>";
+        var oo="<?php echo $longitude?>";
+        var origin1 =new google.maps.LatLng(o,oo);
+        var latt="<?php echo $res['latitude']?>";
+        var longg="<?php echo $res['longitude']?>";
+        var destination1=new google.maps.LatLng(latt,longg);
         var service = new google.maps.DistanceMatrixService;
         service.getDistanceMatrix(
           {
-          origins: [origin1],
-          destinations: dList,
+          origins: [{lat:o,lng:oo},'Greenwich, England'],
+          destinations:[{lat:latt,lng:longg},'Stockholm, Sweden'],
+         // origin:[{lat:o1,lng:o2}],
+        // destination:[{lat:latt,lng:longg}],
           travelMode: 'DRIVING',
           unitSystem: google.maps.UnitSystem.METRIC,
           avoidHighways: false,
@@ -65,44 +76,33 @@ mysqli_free_result($res1);
               var originList = response.originAddresses;
               var destinationList = response.destinationAddresses;
               console.log(response);
-              for (var i = 0; i < originList.length; i++) 
-              {
-                var results = response.rows[i].elements;
-                // setCookie('results', results);
-                // //document.cookie = "results = " + results;
-                // document.cookie="len= "+results.length;
-                // document.cookie="destinationList= "+destinationList;
-              }
+              var results = response.rows.elements[0].distance.text;  
+              document.getElementById("r").innerHTML=results;
+
             }
         });
       }
+        <?php $sql2="update donar set distance=results where latitude={$res['latitude']}and longitude={$res['longitude']}";
+         mysqli_query($conn,$sql2);?>
+  <?php endforeach ?>
 </script>
 // <?php 
-// $re=$_COOKIE['results'];
-// $re = stripslashes($re);
-// $res = json_decode($re, true);
-// $l=$_COOKIE['len'];
-// $destinatio=$_COOKIE['destinationList'];
-for($j=0 ; $j<$l; $j++){
-	$sql2="update location set distance= results.distance.text where address=destinationList[j]";
-	mysqli_query($conn,$sql2);
-}
 if($bg=='A+') 
-$sql3="select * from location where blood_group in ('A-','A+','O-','O+') order by distance";
+$sql3="select * from donar where blood_group in ('A-','A+','O-','O+') order by distance";
 if($bg=='A-') 
-$sql3="select * from location where blood_group in ('A-','O-') order by distance";
+$sql3="select * from donar where blood_group in ('A-','O-') order by distance";
 if($bg=='B+') 
-$sql3="select * from location where blood_group in ('B-','B+','O-','O+') order by distance";
+$sql3="select * from donar where blood_group in ('B-','B+','O-','O+') order by distance";
 if($bg=='B-') 
-$sql3="select * from location where blood_group in ('B-','O-') order by distance";
+$sql3="select * from donar where blood_group in ('B-','O-') order by distance";
 if($bg=='AB+') 
-$sql3="select * from location order by distance";
+$sql3="select * from donar order by distance";
 if($bg=='AB-') 
-$sql3="select * from location where blood_group in ('AB-','A-','O-','B-') order by distance";
+$sql3="select * from donar where blood_group in ('AB-','A-','O-','B-') order by distance";
 if($bg=='O+') 
-$sql3="select * from location where blood_group in ('O-','O+') order by distance";
+$sql3="select * from donar where blood_group in ('O-','O+') order by distance";
 if($bg=='O-') 
-$sql3="select * from location where blood_group in ('O-') order by distance";
+$sql3="select * from donar where blood_group in ('O-') order by distance";
  		$res3=mysqli_query($conn,$sql3);
  		$donors = mysqli_fetch_all($res3,MYSQLI_ASSOC);
  		mysqli_free_result($res3);
